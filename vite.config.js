@@ -1,3 +1,4 @@
+
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -8,6 +9,10 @@ export default defineConfig({
     org: "polotno",
     project: "polotno-studio"
   })],
+
+  server: {
+    port: 8080
+  },
 
   build: {
     sourcemap: true

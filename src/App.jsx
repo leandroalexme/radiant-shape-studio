@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { Spinner } from '@blueprintjs/core';
@@ -21,12 +22,7 @@ import { MyDesignsSection } from './sections/my-designs-section';
 
 import { useProject } from './project';
 
-import fr from './translations/fr';
-import en from './translations/en';
-import id from './translations/id';
-import ru from './translations/ru';
-import ptBr from './translations/pt-br';
-import zhCh from './translations/zh-ch';
+import en from './translations/en.json';
 
 import Topbar from './topbar/topbar';
 
@@ -81,9 +77,11 @@ const getOffsetHeight = () => {
 const useHeight = () => {
   const [height, setHeight] = React.useState(getOffsetHeight());
   React.useEffect(() => {
-    window.addEventListener('resize', () => {
+    const handleResize = () => {
       setHeight(getOffsetHeight());
-    });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
   return height;
 };
@@ -93,20 +91,8 @@ const App = observer(({ store }) => {
   const height = useHeight();
 
   React.useEffect(() => {
-    if (project.language.startsWith('fr')) {
-      setTranslations(fr, { validate: true });
-    } else if (project.language.startsWith('id')) {
-      setTranslations(id, { validate: true });
-    } else if (project.language.startsWith('ru')) {
-      setTranslations(ru, { validate: true });
-    } else if (project.language.startsWith('pt')) {
-      setTranslations(ptBr, { validate: true });
-    } else if (project.language.startsWith('zh')) {
-      setTranslations(zhCh, { validate: true });
-    } else {
-      setTranslations(en, { validate: true });
-    }
-  }, [project.language]);
+    setTranslations(en, { validate: true });
+  }, []);
 
   React.useEffect(() => {
     project.firstLoad();
@@ -136,6 +122,7 @@ const App = observer(({ store }) => {
         flexDirection: 'column',
       }}
       onDrop={handleDrop}
+      onDragOver={(e) => e.preventDefault()}
     >
       <Topbar store={store} />
       <div style={{ height: 'calc(100% - 50px)' }}>

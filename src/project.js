@@ -1,3 +1,4 @@
+
 import * as mobx from 'mobx';
 import { createContext, useContext } from 'react';
 import { storage } from './storage';
@@ -93,7 +94,7 @@ class Project {
     } catch (e) {
       console.error(e);
       this.id = '';
-      this.name = 'Untitled Design';
+      this.name = 'Design sem título';
       await storage.removeItem('polotno-last-design-id');
     }
     this.status = 'saved';
@@ -157,7 +158,7 @@ class Project {
 
   async createNewDesign() {
     await this.clear();
-    this.name = 'Untitled Design';
+    this.name = 'Design sem título';
     this.id = '';
     console.log('saving');
     await this.save();
