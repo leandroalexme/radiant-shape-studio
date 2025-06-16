@@ -1,13 +1,12 @@
-
+import React from 'react';
 import * as mobx from 'mobx';
-import { createContext, useContext } from 'react';
 import { storage } from './storage';
 
 import * as api from './api';
 
-export const ProjectContext = createContext({});
+export const ProjectContext = React.createContext({});
 
-export const useProject = () => useContext(ProjectContext);
+export const useProject = () => React.useContext(ProjectContext);
 
 const getFromStorage = (key) => {
   try {
