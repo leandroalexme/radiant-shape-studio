@@ -29,7 +29,10 @@ export default defineConfig(async ({ mode }) => {
 
     server: {
       host: "::",
-      port: 8080
+      port: 8080,
+      hmr: {
+        clientPort: 443
+      }
     },
 
     resolve: {
@@ -40,6 +43,10 @@ export default defineConfig(async ({ mode }) => {
 
     build: {
       sourcemap: true
+    },
+
+    define: {
+      __WS_TOKEN__: JSON.stringify(process.env.WS_TOKEN || '')
     }
   };
 });
